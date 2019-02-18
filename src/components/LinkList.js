@@ -34,18 +34,18 @@ class LinkList extends Component {
 
         return (
             <Query query={FEED_QUERY}>
-                {(loading, error, data) => {
+                {({loading, error, data}) => {  //here is where the object is read by the keys in it
                     console.log('inside query');
                     console.log(loading);
                     console.log(error);
                     console.log(data);
-                    if(!loading || loading.data === {} || !loading.data.feed) {
+                    if(loading || error) {
                         console.log('returning from lack of data ****************** ');
                         return (
                             <div> Fetching.... </div>
                         )
                     }
-                    const linksToRender = loading.data.feed.links;
+                    const linksToRender = data.feed.links;
 
                     return linksToRender.map(link => { 
                         return <Link key={link.id} link={link}> </Link>
